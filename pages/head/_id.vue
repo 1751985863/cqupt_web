@@ -4,10 +4,10 @@
             <div class="problem-detail">
     <!-- title area  -->
     <div class="title-intro">
-        <h2>{{pojo.title}}</h2>
+        <h2>{{pojo.title}}</h2><a @click="at">an</a>
         <div class="operate">
             <span class="fl author">{{pojo.nickname}}  发布　　<span class="time">{{pojo.createtime}}</span></span>
-            <span class="fr ">收藏</span>
+            <span class="fr ">收藏</span> 
         </div>
         <div class="clearfix"></div>
         <div class="content">
@@ -19,10 +19,12 @@
       <!-- 标题区 --> 
       <div class="detail-tit"> 
           <div class="detail-tool"> 
-         
-         <span class="star"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{pojo.thumbup}}</span>
-         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="#" ><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+              <div><el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-thumb" circle></el-button> {{pojo.thumbup}}</div>
+
+  
+        
+
+        
        
        </div>
       </div>
@@ -103,15 +105,30 @@ import '~/assets//css/page-sj-headline-detail.css'
 import articleApi from '@/api/article'
 import userApi from '@/api/user'
 import axios from 'axios'
+import {getUser} from '@/utils/auth'
 export default {
+        created(){
+            
+        articleApi.spitthumbif(this.problemid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+        })
 
+
+    }
+,
     asyncData({params}){
       return  articleApi.findById(params.id).then(function (res){
           console.log(res.data.data.userid)
          
           return{
               pojo: res.data.data,
-              user: {}
+              user: {},
+              problemid: params.id
               
              
           }
@@ -121,7 +138,82 @@ export default {
     
     
 },
+data(){
+    return {
+         zantepy: 'info'
+    }
+
+},
 methods: {
+    at(){
+        articleApi.findById(this.problemid).then(res1=>{
+                  this.pojo=res1.data.data
+
+              })
+
+    },
+     thumbit(){
+         
+            if(getUser().name===undefined){
+                this.$message({
+                    message:'必须登陆才分享哦~',
+                    type:'warning'
+                })
+                return 
+            }
+            if(this.zantepy==='info'){
+                articleApi.thumbspit(this.problemid).then(res=>{
+                    this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              articleApi.spitthumbif(this.problemid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+            articleApi.findById(this.problemid).then(res1=>{
+                  this.pojo=res1.data.data
+
+              })
+        })
+         
+
+
+
+                })
+
+
+            }
+            if(this.zantepy==='primary'){
+                articleApi.delthumbspit(this.problemid).then(res=>{
+                    this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              articleApi.spitthumbif(this.problemid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+            articleApi.findById(this.problemid).then(res1=>{
+                  this.pojo=res1.data.data
+
+              })
+              })
+
+
+
+                })
+
+            }
+            
+
+        },
     findUser(userid){
          userApi.findById(userid).then(function(res){
             this.user=res.data.data;

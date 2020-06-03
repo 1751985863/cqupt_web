@@ -15,19 +15,19 @@
           
      <div class="join"> 
      <div v-if="user1.name===undefined">
-         <button class="sui-btn btn-danger"  @click="logined">没登陆</button> 
+         <button class="sui-btn btn-danger"  @click="logined">没登陆</button> <span class="will">报名即将开始</span> 
      </div>
      <div v-if="user1.name!==undefined">
          <div v-if="joinflag===true">
-             <button class="sui-btn btn-danger"  @click="dialogFormVisible=true;">立即报名</button> 
+             <button class="sui-btn btn-danger"  @click="dialogFormVisible=true;">立即报名</button> <span class="will">报名即将开始</span> 
          </div>
          <div v-if="joinflag===false">
-             <button class="sui-btn btn-danger"  >已经参加</button> 
+             <button class="sui-btn btn-danger"  >已经参加</button> <span class="will">报名即将开始</span> 
          </div>
      </div>
       
 
-      <span class="will">报名即将开始</span> 
+      
      </div> 
     </div> 
    </div> 

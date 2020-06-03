@@ -13,7 +13,7 @@
        <li class="yui3-u-1-2 job-item" v-for="(item,index) in recommendList" :key="index"> 
          <p><span class="name">
            <nuxt-link :to="'/recruit/item/'+item.id">{{item.jobname}}</nuxt-link>
-         </span><span class="city"><i class="fa fa-map-marker"></i> 北京</span></p> <p class="need"><span class="money">{{item.salary}}</span>/{{item.condition}}/{{item.education}}</p> <p><span class="company">百度 &middot; 6天前</span></p> 
+         </span><span class="city"><i class="fa fa-map-marker"></i> {{item.address}}</span></p> <p class="need"><span class="money">{{item.salary}}</span>/{{item.condition}}/{{item.education}}</p> <p><span class="company">{{item.createtime}}</span></p> 
       </li> 
        
       </ul> 
@@ -29,7 +29,7 @@
          <span class="name"> 
            
            <nuxt-link :to="'/recruit/item/'+item.id">{{item.jobname}}</nuxt-link>
-           </span><span class="city"><i class="fa fa-map-marker"></i> 北京</span></p> <p class="need"><span class="money">{{item.salary}}</span>/{{item.condition}}/{{item.education}}/{{item.type}}</p> <p><span class="company">百度 &middot; 6天前</span></p> </li> 
+           </span><span class="city"><i class="fa fa-map-marker"></i> {{item.address}}</span></p> <p class="need"><span class="money">{{item.salary}}</span>/{{item.condition}}/{{item.education}}</p> <p><span class="company">{{item.createtime}}</span></p> </li> 
       
       </ul> 
      </div> 
@@ -46,7 +46,7 @@
        <li class="yui3-u-1-3 company-item" v-for="(item,index) in hostList" :key="index"> 
          <p><img :src="item.logo" alt="" /></p> 
          <p class="title">{{item.name}}</p> <p class="position">
-           <a href="~/assets/recruit-company.html" target="_blank">{{item.jobcount}}个职位</a></p> </li> 
+           <a :href="'/recruit/enterprise/'+item.id" target="_blank">{{item.jobcount}}个职位</a></p> </li> 
       
       </ul> 
      </div> 

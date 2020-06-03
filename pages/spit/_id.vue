@@ -13,9 +13,8 @@
        </div> 
        <div class="detail-tool"> 
         <ul> 
-         <li><span class="star"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{pojo.thumbup}}</span></li> 
-         <li><a href="#" ><i class="fa fa-share-alt" aria-hidden="true"></i> {{pojo.share}}</a></li> 
-         <li><a @click="dialogVisible=true;content=''"><i  class="fa fa-commenting" aria-hidden="true"></i> {{pojo.comment}}</a></li> 
+         <li>   <el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-thumb" circle></el-button> {{pojo.thumbup}}</li>
+         <li>   <el-button @click="dialogVisible=true;content=''" type="primary" size="mini" icon="el-icon-chat-dot-square" circle></el-button> {{pojo.comment}}</li>
         </ul> 
        </div> 
       </div> 
@@ -31,12 +30,12 @@
           <img src="~/assets/img/widget-widget-photo.png" alt="" /> 
          </div> 
          <div class="item-content"> 
-          <p class="author"><a href="javascript:;">{{index+1}}楼</a> 发布</p> 
+          <p class="author"><a href="javascript:;">{{index+1}}楼</a> 发布&nbsp;&nbsp; <a>{{item.publishdate}}</a></p> 
           <p class="content">{{item.content}}</p> 
          </div> 
          <div class="item-thumb"> 
           <div>
-           <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{item.thumbup}}
+          
           </div> 
          </div> </li> 
           
@@ -65,11 +64,24 @@
    </div> 
 </template>
 <script>
+import '~/assets/css/page-sj-spit-index.css'
 import '~/assets/css/page-sj-spit-detail.css'
 import spitApi from '@/api/spit'
 import axios from 'axios'
 import {getUser} from '@/utils/auth'
 export default {
+    created(){
+        spitApi.spitthumbif(this.spitid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+        })
+
+
+    },
     asyncData({params}){
         
         return axios.all( [ spitApi.findById(params.id),spitApi.commentlist(params.id ) ] ).then( 
@@ -85,7 +97,8 @@ export default {
     },
     data(){
         return {
-            
+
+            zantepy: 'info',
             dialogVisible: false,
             content: '',            
             editorOption: {
@@ -102,6 +115,67 @@ export default {
         }
     },
     methods:{
+        thumbit(){
+            if(getUser().name===undefined){
+                this.$message({
+                    message:'必须登陆才分享哦~',
+                    type:'warning'
+                })
+                return 
+            }
+            if(this.zantepy==='info'){
+                spitApi.thumbspit(this.spitid).then(res=>{
+                    this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              spitApi.spitthumbif(this.spitid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+            spitApi.findById(this.spitid).then(res1=>{
+                  this.pojo=res1.data.data
+
+              })
+        })
+         
+
+
+
+                })
+
+
+            }
+            if(this.zantepy==='primary'){
+                spitApi.delthumbspit(this.spitid).then(res=>{
+                    this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              spitApi.spitthumbif(this.spitid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+            spitApi.findById(this.spitid).then(res1=>{
+                  this.pojo=res1.data.data
+
+              })
+              })
+
+
+
+                })
+
+            }
+            
+
+        },
        onEditorChange({ editor, html, text }) {
         console.log('editor change!', editor, html, text)
         this.content = html

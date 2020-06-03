@@ -32,8 +32,6 @@ export default {
     },
     methods: {
         delmyprobelm(spitid){
-          
-                 
             
              this.$confirm('确定要删除该秘密吗', '提示', {
         confirmButtonText: '确定',

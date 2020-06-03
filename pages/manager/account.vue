@@ -140,7 +140,7 @@ export default {
 		saveinfo_college(){
 			userApi.saveinfo( this.user ).then( res=> {
 				this.college_input=false
-				alert(this.user.password)
+				
 			})
 
 		},

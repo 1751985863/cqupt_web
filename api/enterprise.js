@@ -28,6 +28,12 @@ export default {
       method: 'get'
     })
   },
+  findByIdfromrecruit(id) {
+    return request({
+      url: `/recruit/${api_name}/${id}`,
+      method: 'get'
+    })
+  },
   update(id, pojo) {
     if (id === null || id === '') {
       return this.save(pojo)

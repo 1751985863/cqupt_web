@@ -17,7 +17,7 @@
          <p class="title">{{item.name}}</p> 
          <div class="fl goin"> 
           <p>时间：{{item.starttime}}</p> 
-          <p>城市：{{item.city}}</p> 
+          <p>城市：{{item.address}}</p> 
          </div> 
          <div class="fr btn"> 
           <span class="sui-btn btn-bao"   ><a style="color:white" :href="'/gathering/item/'+item.id" target="_blank">查看详情</a></span> 

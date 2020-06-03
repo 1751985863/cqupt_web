@@ -3,6 +3,39 @@ import {getUser} from '@/utils/auth'
 const group_name = 'article'
 const api_name = 'article'
 export default {
+  thumbspit(problemId){
+    return request({
+      url: `/${group_name}/${api_name}/thumbup/${problemId}`,
+      method: 'put',
+      headers: {
+        token: getUser().token
+    }
+
+    })
+
+  },
+  delthumbspit(problemId){
+    return request({
+      url: `/${group_name}/${api_name}/deletethumbup/${problemId}`,
+      method: 'delete',
+      headers: {
+        token: getUser().token
+    }
+
+    })
+
+  },
+  spitthumbif(problemid){
+    return request({
+      url: `/${group_name}/${api_name}/ifthumbup/${problemid}`,
+      method: 'get',
+      headers: {
+        token: getUser().token
+    }
+
+    })
+
+  },
   getList() {
     return request({
       url: `/${group_name}/${api_name}`,

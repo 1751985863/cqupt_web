@@ -55,5 +55,11 @@ export default {
       url: `/${group_name}/${api_name}/search/newList`,
       method: 'get'
     })
+  },
+  findrecruit(eid){
+    return request({
+      url: `/${group_name}/${api_name}/findrecruit/${eid}`,
+      method: 'get'
+    })
   }
 }

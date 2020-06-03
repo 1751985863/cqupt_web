@@ -7,10 +7,9 @@
             <div class="navbar-inner"> 
             <a href="/" class="sui-brand"><img src="~/assets/img/asset-logo-black.png" alt="社交" /></a> 
             <ul class="sui-nav"> 
-                
+                 <router-link tag="li" to="/" active-class="active" exact><a>头条</a></router-link>
                 <router-link tag="li" to="/qa" active-class="active"><a>知否</a></router-link>
                 <router-link tag="li" to="/gathering" active-class="active"><a>活动</a></router-link>
-                <router-link tag="li" to="/" active-class="active" exact><a>头条</a></router-link>
                 <router-link tag="li" to="/spit" active-class="active"><a>无秘</a></router-link>
                 <router-link tag="li" to="/recruit" active-class="active"><a>招聘</a></router-link>
 
@@ -22,9 +21,9 @@
                
             </form> 
             <div class="sui-nav pull-right info" v-if="user.name!==undefined"> 
-              <li><a href="/manager" class="notice">{{user.name}}</a></li>     
+              <li><a href="/manager/account" class="notice">{{user.name}}</a></li>     
               <li><a @click="logout" class="sui-btn btn-login">退出登陆</a></li>            
-              <li><a href="/manager"  class="homego"><img :src="user.avatar" width="50px" height="50px" :alt="user.name" /></a></li> 
+              <li><a href="/manager/account"  class="homego"><img :src="user.avatar" width="50px" height="50px" :alt="user.name" /></a></li> 
             </div> 
              <div class="sui-nav pull-right info" v-if="user.name===undefined"> 
                         <li><a href="/register" target="_blank">注册</a></li> 

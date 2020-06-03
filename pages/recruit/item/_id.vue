@@ -20,10 +20,8 @@
      </div> 
     </div> 
     <div class="right-tool"> 
-     <p class="throw"><button class="sui-btn btn-throw">投简历</button></p> 
-     <button class="sui-btn btn-collect">收藏</button> 
-     <span>100收藏</span> 
-     <span>291浏览</span> 
+     <p class="throw"><a href="https://www.zhipin.com/geek/attresume/parser.html?ka=nlp_resume_upload"><button  class="sui-btn btn-throw">投简历</button></a></p> 
+
     </div> 
     <div style="clear:both"></div> 
    </div> 
@@ -62,7 +60,7 @@
      </div> 
      <div class="btns"> 
       <a class="sui-btn btn-home" :href="enterprise_item.url" target="_blank">企业主页</a> 
-      <a class="sui-btn btn-position" href="~/assets/recruit-job.html" target="_blank">{{enterprise_item.jobcount}}个职位</a> 
+      <a class="sui-btn btn-position" :href="'/recruit/enterprise/'+enterprise_item.id" target="_blank">{{enterprise_item.jobcount}}个职位</a> 
      </div> 
     </div> 
    </div> 

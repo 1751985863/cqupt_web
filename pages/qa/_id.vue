@@ -14,9 +14,10 @@
        </div> 
        <div class="detail-tool"> 
         <ul> 
-         <li><span class="star"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> {{pojo.thumbup}}</span></li> 
-         <li><a href="#" ><i class="fa fa-share-alt" aria-hidden="true"></i> {{pojo.share}}</a></li> 
-         <li><a @click="dialogVisible=true;content=''"><i  class="fa fa-commenting" aria-hidden="true"></i> {{pojo.comment}}</a></li> 
+
+         <li><el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-thumb" circle></el-button> {{pojo.thumbup}}</li>
+         <li><el-button @click="dialogVisible=true;content=''" type="primary" size="mini" icon="el-icon-chat-dot-square" circle></el-button> {{pojo.reply}}</li>
+
         </ul> 
        </div> 
       </div> 
@@ -32,7 +33,8 @@
           <img src="~/assets/img/widget-widget-photo.png" alt="" /> 
          </div> 
          <div class="item-content"> 
-          <p class="author"><a href="javascript:;">{{item.nickname}}</a> 发布</p> 
+          
+           <router-link :to="'/requster/'+item.nickname"> {{item.nickname}} </router-link>回答
           <p class="content">{{item.content}}</p> 
          </div> 
          <div class="item-thumb"> 
@@ -47,6 +49,7 @@
     </div> 
     <div class="fl right-tag"> 
      <div class="block-btn"> 
+         <a @click="at">谈谈</a>
       <p>今天，要提个问题吗?</p> 
       <a class="sui-btn btn-block btn-share" @click="jumpqa" target="_blank">发布问题</a> 
      </div> 
@@ -71,19 +74,34 @@ import problemApi from '@/api/problem'
 import axios from 'axios'
 import {getUser} from '@/utils/auth'
 export default {
+        created(){
+        problemApi.spitthumbif(this.problemid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+        })
+
+
+    },
     asyncData({params}){
         
         return axios.all( [ problemApi.findById(params.id),problemApi.commentlist(params.id)  ] ).then( 
             axios.spread( function( pojo,commentlist ){
                 return {
                     pojo: pojo.data.data,
-                    commentlist: commentlist.data.data
+                    commentlist: commentlist.data.data, 
+                    problemid: params.id
                 } 
             })
          )
     },
     data(){
         return {
+            
+            zantepy: 'info',
             dialogVisible: false,
             content: '',            
             editorOption: {
@@ -100,6 +118,74 @@ export default {
         }
     },
     methods:{
+        at(){
+            alert(problemid)
+            problemApi.spitthumbif(this.problemid).then(res=>{
+            this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+        })
+
+        },
+        thumbit(){
+            if(getUser().name===undefined){
+                this.$message({
+                    message:'必须登陆才分享哦~',
+                    type:'warning'
+                })
+                return 
+            }
+            if(this.zantepy==='info'){
+                problemApi.thumbspit(this.problemid).then(res=>{
+                    this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              problemApi.spitthumbif(this.problemid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+            problemApi.findById(this.problemid).then(res1=>{
+                this.pojo=res1.data.data
+
+            })
+
+        })
+                })
+
+            }
+            if(this.zantepy==='primary'){
+                problemApi.delthumbspit(this.problemid).then(res=>{
+                    this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              problemApi.spitthumbif(this.problemid).then(res=>{
+            if(res.data.flag){
+                this.zantepy='primary'
+            }
+            else{
+                this.zantepy='info'
+            }
+             problemApi.findById(this.problemid).then(res1=>{
+                this.pojo=res1.data.data
+
+            })
+  
+              })
+
+
+
+                })
+
+            }
+            
+
+        },
        onEditorChange({ editor, html, text }) {
         console.log('editor change!', editor, html, text)
         this.content = html

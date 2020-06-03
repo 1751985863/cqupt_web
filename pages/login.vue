@@ -105,10 +105,10 @@ export default {
         userApi.login(this.mobile,this.password ).then( res=> {
           if(res.data.flag){
             //保存用户信息 
-            alert(''+res.data.data.nickname)
+          
             setUser(res.data.data.token, res.data.data.nickname, res.data.data.avatar)
            
-            location.href='/manager' //用户中心            
+            location.href='/manager/account' //用户中心            
             
           }else{
             this.$message( {
