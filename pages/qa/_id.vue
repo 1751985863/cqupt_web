@@ -5,17 +5,20 @@
       <!-- 标题区 --> 
       <div class="detail-tit"> 
        <div class="detail-author"> 
-           <router-link :to="'/requster/'+pojo.nickname"> {{pojo.nickname}} </router-link>发布
+             <h4><router-link :to="'/requster/'+pojo.nickname"> {{pojo.nickname}} </router-link>发布</h4>
+          
        </div> 
        <div class="detail-content"> 
            <h1>{{pojo.title}}</h1>
         <p>{{pojo.content}}</p> 
        
        </div> 
+      
        <div class="detail-tool"> 
         <ul> 
+        <li><el-button type="primary" icon="el-icon-view" size="mini" circle></el-button> {{pojo.visits}}</li>
 
-         <li><el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-thumb" circle></el-button> {{pojo.thumbup}}</li>
+         <li><el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-star-off" circle></el-button> {{pojo.thumbup}}</li>
          <li><el-button @click="dialogVisible=true;content=''" type="primary" size="mini" icon="el-icon-chat-dot-square" circle></el-button> {{pojo.reply}}</li>
 
         </ul> 
@@ -49,7 +52,7 @@
     </div> 
     <div class="fl right-tag"> 
      <div class="block-btn"> 
-         <a @click="at">谈谈</a>
+      
       <p>今天，要提个问题吗?</p> 
       <a class="sui-btn btn-block btn-share" @click="jumpqa" target="_blank">发布问题</a> 
      </div> 

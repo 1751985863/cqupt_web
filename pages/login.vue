@@ -17,7 +17,7 @@
        </div> 
       </div> 
       <div class="controls"> 
-       <label> <input type="checkbox" name="remember-me" /><span class="type-text" style="font-size:12px;">记住登录状态 &nbsp; </span><a @click="dialogVisible=true">忘记密码</a> </label> 
+       <label> <input type="checkbox" name="remember-me" /><span class="type-text" style="font-size:12px;">记住登录状态 &nbsp; </span><a @click="cleanmessage();dialogVisible=true">忘记密码</a> </label> 
        <button type="button" class="sui-btn btn-danger btn-yes" @click="login" >登 录</button> 
       </div> 
      </form> 
@@ -46,28 +46,21 @@
       </div> 
       
      </form> 
-     <el-dialog
-        title="忘记密码" :visible.sync="dialogVisible"
-        width="20%">
-        手机号：
-        <el-input  type="text"  v-model="mobile" placeholder="请输入手机号" /> 
-        
-        <div v-if="!Visible">
-          验证码：
-        <el-input  type="text" :disabled="Visible" v-model="checkcode" placeholder="请输入验证码"/> 
-        重置密码：
-        <el-input  type="password" :disabled="Visible" v-model="password" placeholder="请输入重置密码"/>
-        <br>
-        确认密码:
-        <el-input  type="password" :disabled="Visible" v-model="temp"  placeholder="请输入再次输入密码"/> 
-        
-        </div>
-        <br>
-        <br>
+         <el-dialog  width="30%" title="忘记密码" :visible.sync="dialogVisible"> 
+        <el-form label-width="80px">
+       <el-form-item label="手机号"><el-input  type="text" v-model="mobile"></el-input></el-form-item>
+       <el-form-item label="验证码"><el-input :disabled="Visible" type="text" v-model="code"></el-input></el-form-item>
+	       <el-form-item label="重置密码"><el-input :disabled="Visible" type="password" v-model="temp"></el-input></el-form-item>
+        <el-form-item label="确认密码"><el-input :disabled="Visible" type="password" v-model="password"></el-input></el-form-item>
+       
+
         <el-button  @click="dialogVisible = false">取 消</el-button>
         <el-button v-if="!Visible" type="primary" @click="save">提交</el-button>
         <el-button v-if="Visible" type="primary" @click="sendsms">点击发送验证码</el-button>
-    </el-dialog> 
+
+    </el-form>
+   </el-dialog>
+
     </div> 
    </div> 
   </div>   
@@ -93,6 +86,13 @@ export default {
       }
     },
     methods: {
+      cleanmessage(){
+        this.password=''
+        this.mobile=''
+        this.code=''
+        this.temp=''
+
+      },
       register(){
         userApi.register( this.pojo, this.code ).then( res=> {
           this.$message({
@@ -133,7 +133,14 @@ export default {
 
       },
       save(){
-          userApi.forget(this.mobile,this.checkcode,this.password).then(res=>{
+        if(this.password!==this.temp||this.password===''||this.code===''||this.mobile===''||this.temp===''){
+				this.$message({
+                  message: '输入有误，请重新输入',
+                  type: 'error'
+			  })
+			  return
+			}
+          userApi.forget(this.mobile,this.code,this.password).then(res=>{
               if(!res.data.flag){
                   this.$message({
                     message: res.data.message,

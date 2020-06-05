@@ -13,7 +13,8 @@
        </div> 
        <div class="detail-tool"> 
         <ul> 
-         <li>   <el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-thumb" circle></el-button> {{pojo.thumbup}}</li>
+         <li><el-button type="primary" icon="el-icon-view" size="mini" circle></el-button> {{pojo.visits}}</li>
+         <li>   <el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-star-off" circle></el-button> {{pojo.thumbup}}</li>
          <li>   <el-button @click="dialogVisible=true;content=''" type="primary" size="mini" icon="el-icon-chat-dot-square" circle></el-button> {{pojo.comment}}</li>
         </ul> 
        </div> 

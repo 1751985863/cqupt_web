@@ -6,7 +6,7 @@
      <div class="job-type reco-job"> 
       <div class="head"> 
        <h4 class="title pull-left">推荐职位</h4> 
-       <span class="more pull-right"><a href="#">更多职位推荐&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a></span> 
+       <span class="more pull-right"><a href="/recruit/moreitem">更多职位推荐&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a></span> 
        <div class="clearfix"></div> 
       </div> 
       <ul class="yui3-g job-list" style="display:block;"> 
@@ -21,7 +21,7 @@
      <div class="job-type latest-job"> 
       <div class="head"> 
        <h4 class="title pull-left">最新职位</h4> 
-       <span class="more pull-right"><a href="#">更多职位推荐&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a></span> 
+       <span class="more pull-right"><a href="/recruit/moreitem">更多职位推荐&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a></span> 
        <div class="clearfix"></div> 
       </div> 
       <ul class="yui3-g job-list" style="display:block;"> 
@@ -37,10 +37,13 @@
    </div> 
    <div class="fl right-tag"> 
     <div class="hot-company"> 
-     <p class="mail">提交收录请发邮件至ccccccc@qq.com</p> 
+    <a href="/recruit/moreenterprise"><p class="mail">更多企业</p> </a>
      <div class="company"> 
       <div class="head"> 
        <h4>热门企业</h4> 
+       
+       
+       <div class="clearfix"></div> 
       </div> 
       <ul class="yui3-g company" style="display:block;"> 
        <li class="yui3-u-1-3 company-item" v-for="(item,index) in hostList" :key="index"> 

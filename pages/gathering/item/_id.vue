@@ -15,7 +15,7 @@
           
      <div class="join"> 
      <div v-if="user1.name===undefined">
-         <button class="sui-btn btn-danger"  @click="logined">没登陆</button> <span class="will">报名即将开始</span> 
+         <button class="sui-btn btn-danger"  @click="logined">立即报名</button> <span class="will">报名即将开始</span> 
      </div>
      <div v-if="user1.name!==undefined">
          <div v-if="joinflag===true">

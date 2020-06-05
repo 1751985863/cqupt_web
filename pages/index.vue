@@ -18,33 +18,34 @@
     </div> 
     <div class="right-content"> 
      <div class="fl middle"> 
-      <div class="carousel"> 
-       <div id="myCarousel" data-ride="carousel" data-interval="4000" class="sui-carousel slide"> 
-        <div class="carousel-inner"> 
-         <div class="active item"> 
-          <a href="https://pan.baidu.com/s/1Q5NklNGneeeM3nvugvPHGQ"><img src="~/assets/img/widget-banner02.png" /></a> 
-         </div>  
-        </div> 
-       </div> 
-      </div> 
+      <el-carousel indicator-position="outside">
+    <el-carousel-item >
+              <a href="#"><img src="~/assets/img/banner2.png" /></a> 
+    </el-carousel-item>
+    <el-carousel-item >
+           <a href="https://spring.io/">   <img src="~/assets/img/banner1.png" /></a>
+    </el-carousel-item>
+    <el-carousel-item >
+              <a href="https://spring.io/"><img src="~/assets/img/banner3.png" /></a> 
+    </el-carousel-item>
+  </el-carousel> 
       <div class="data-list"> 
-       <ul class="headline fixed" id="headline"> 
-         
-        <li class="headline-item" v-for="(item,index) in items" :key="index"> 
-         <div class="fl indexImg"> 
-          <img src="" /> 
-         </div> 
-         <div class="words"> 
-          <h3><router-link :to="'/head/'+item.id"> {{item.title}} </router-link>  </h3> 
-          <h5 class="author"> 
-           <div class="fl"> 
-            <span class="authorName">&nbsp; 作者：{{item.nickname}} </span> 
-            <span>{{ item.createtime}}</span> 
-           </div> 
-           <div class="clearfix"></div> </h5> 
-         </div><img :src="item.image" /> </li> 
-        
-       </ul> 
+       
+       <div v-for="(item,index) in items" :key="index">
+       <el-alert effect="dark"  :title="item.createtime+' 发布'"  :type="color[1]"  >
+   <el-row>
+ <router-link style="color:white" :to="'/head/'+item.id"  >  <h3>{{item.title}}</h3></router-link>
+  </el-row>
+  <el-row>
+    <h4>作者：{{item.nickname}} </h4>
+  <br>
+  <el-button icon="el-icon-star-off" size="small" circle></el-button> {{item.thumbup}}
+  <el-button icon="el-icon-view" size="small" circle></el-button> {{item.visits}} 
+  <br>
+  </el-row>
+  </el-alert>
+  <br>
+</div> 
        <div class="stop"> 
         <a @click="loadMore">内容看不够，点击刷新 <i class="fa fa-refresh" aria-hidden="true"></i></a> 
        </div> 
@@ -87,18 +88,6 @@
            <div class="clearfix"></div> 
           </div>
            </li> 
-           <li class="card-item"> 
-          <div class="img"> 
-          <a href="http://fen555.com/"> <img src="~/assets/img/baiduwen.jpg" alt="" /> </a>
-          </div> 
-          <div class="info">
-           <div class="fl intro"> 
-            <p>账号：709514052 <span class="date">密码：533317</span></p> 
-            <p class="name">百度文库下载，复制链接即可下载 <span class="date"></span></p> 
-           </div> 
-           <div class="clearfix"></div> 
-          </div>
-           </li> 
 
 		</ul>
 		</div>
@@ -116,7 +105,7 @@
          </ol> 
          <div class="carousel-inner"> 
           <div class="active item"> 
-           <img src="~/assets/img/widget-ad01.png" /> 
+          <a href="https://cn.vuejs.org/"> <img src="~/assets/img/widget-ad01.png" /> </a>
           </div> 
           <div class="item"> 
            <img src="~/assets/img/widget-ad01.png" /> 
@@ -151,11 +140,12 @@ export default {
 
  data(){
       return {
+        color: ['success','info','warning','error'],
         pageNo: 1
       }
     },
     asyncData(){
-      return axios.all( [articleApi.search(1,10,{ispublic: "1"})]).then(
+      return axios.all( [articleApi.search(1,5,{ispublic: "1"})]).then(
             axios.spread( function(article){
                 return {
                   items: article.data.data.rows
@@ -171,7 +161,7 @@ export default {
     methods: {
       loadMore(){
         this.pageNo++
-        articleApi.search(this.pageNo,10,{ispublic: "1"}).then( res => {
+        articleApi.search(this.pageNo,5,{ispublic: "1"}).then( res => {
           this.items = this.items.concat( res.data.data.rows )
           if(res.data.data.rows == undefined || res.data.data.rows.length <= 0){
             this.$message({
@@ -234,5 +224,21 @@ export default {
   
 }
 </script>
-
+<style>
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 0.75;
+    line-height: 300px;
+    margin: 0;
+  }
+  
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+</style>
 

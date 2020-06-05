@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 const TokenKey='User-Token'
 const NameKey='User-Name'
 const AvatarKey='User-Avatar'
+const Key_word='key'
 /*
 export default {
     setUser(token,name,avatar){
@@ -31,4 +32,13 @@ export function removeUser(){
     Cookies.remove(TokenKey)
     Cookies.remove(NameKey)
     Cookies.remove(AvatarKey)
+}
+export function setkeyword(keyword){
+    Cookies.set(Key_word,escape(keyword))
+}
+export function getkeyword(){
+    
+    return {
+        word: unescape(Cookies.get(Key_word))
+    }
 }

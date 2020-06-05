@@ -30,11 +30,11 @@
           <h3><router-link :to="'/head/'+item.id"> {{item.title}} </router-link>  </h3> 
           <h5 class="author"> 
            <div class="fl"> 
-            <span class="authorName">&nbsp; 作者：{{item.userid}} </span> 
+            <span class="authorName">&nbsp; 作者：{{item.nickname}} </span> 
             <span>{{ item.createtime}}</span> 
            </div> 
            <div class="clearfix"></div> </h5> 
-         </div><img :src="item.image" /> </li> 
+         </div> </li> 
         
        </ul> 
        <div class="stop"> 
@@ -189,21 +189,29 @@
 <script>
 import '~/assets/css/page-headline-logined.css'
 import articleApi from '@/api/article'
-import {getUser} from '@/utils/auth'
+import {getUser,getkeyword} from '@/utils/auth'
 export default {
 
  data(){
       return {
-        pageNo: 1
+        pageNo: 1,
+        keyword: getkeyword().word,
+        items: [{}]
       }
     },
-    asyncData({params}){
-      return  articleApi.searchByKeyWord(params.keyword,1,12,{}).then( res => {
-          return {items: res.data.data.rows,
-                 keyword: params.keyword }
+    created(){
+      var word=getkeyword().word
+      
+      return  articleApi.searchByKeyWord(word,1,12,{}).then( res => {
+        this.items=res.data.data.rows,
+        this.keyword=getkeyword().word
+
        })
     },
     methods: {
+      at(){
+        alert(this.keyword)
+      },
       loadMore(){
         this.pageNo++
         articleApi.search(this.pageNo,12,{state:'1'}).then( res => {

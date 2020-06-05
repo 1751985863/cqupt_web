@@ -3,6 +3,16 @@ import {getUser} from '@/utils/auth'
 const group_name = 'user'
 const api_name = 'user'
 export default {
+    updatepassword(oldpassword,newpassword){
+        return request({
+            url:`/${group_name}/${api_name}/change/${oldpassword}/${newpassword}`,
+            method: 'put',
+            headers: {
+                token: getUser().token
+            }
+        })
+
+    },
     sendsms(mobile){
         return request({
             url:`/${group_name}/${api_name}/sendsms/${mobile}`,
@@ -117,6 +127,13 @@ export default {
             token: getUser().token
         }
     }) 
+    },
+    finduserbynickname(nickname){
+        return request({
+            url: `/user/user/finduser//${nickname}`,
+            method: 'get'
+        })
+
     }
     
 

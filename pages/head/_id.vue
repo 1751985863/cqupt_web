@@ -4,10 +4,10 @@
             <div class="problem-detail">
     <!-- title area  -->
     <div class="title-intro">
-        <h2>{{pojo.title}}</h2><a @click="at">an</a>
+        <h2>{{pojo.title}}</h2>
         <div class="operate">
             <span class="fl author">{{pojo.nickname}}  发布　　<span class="time">{{pojo.createtime}}</span></span>
-            <span class="fr ">收藏</span> 
+           
         </div>
         <div class="clearfix"></div>
         <div class="content">
@@ -18,8 +18,11 @@
     <div class="tc-detail"> 
       <!-- 标题区 --> 
       <div class="detail-tit"> 
+          <br>
           <div class="detail-tool"> 
-              <div><el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-thumb" circle></el-button> {{pojo.thumbup}}</div>
+              <el-button type="primary" icon="el-icon-view" size="small" circle></el-button> {{pojo.visits}} 
+             <el-button @click="thumbit" :type="zantepy" size="mini" icon="el-icon-star-off" circle></el-button> {{pojo.thumbup}}
+
 
   
         
@@ -39,60 +42,49 @@
             <div class="focus similar-problem">
     <div class="img-title">
         <div class="fl img">
-            <img src="~/assets/img/widget-photo.jpg" alt="">
+            <el-avatar icon="el-icon-user-solid"></el-avatar>
         </div>
         <div class="fl btn-focus">
             <h4><router-link :to="'/requster/'+pojo.nickname"> {{pojo.nickname}} </router-link></h4>
-            <button class="sui-btn btn-info btn-attention">关注</button>
+        <router-link :to="'/requster/'+pojo.nickname">    <button  class="sui-btn btn-info btn-attention">关注</button></router-link>
         </div>
         <div class="clearfix"></div>
     </div>
     <ul class="problem-list">
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
+        <p class="list-title">我一直都在流浪，可我不曾见过海洋...</p>
         </li>
-        <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
-        </li>
-        <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
-        </li>
-        <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
-        </li>
+
     </ul>
 </div>
 <div class="similar-problem">
     <h3 class="title">热门推荐</h3>
     <ul class="problem-list">
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
+        <a href="#">    <p class="list-title">#北京青年报：内部“线人”制度让安全生产监管更有力</p> </a>
         </li>
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
-        </li>
+<a href="#">    <p class="list-title">#望海楼：美国是名副其实的国际“驰名双标”</p> </a>        </li>
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
-        </li>
+<a href="#">    <p class="list-title">#美国政府刚刚发布命令：暂停所有中国客运航班</p> </a>        </li>
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
-        </li>
+<a href="#">    <p class="list-title">#支持“涉港国安法”，汇丰银行、渣打银行接连表态</p> </a>        </li>
     </ul>
 </div>
 <div class="similar-problem">
     <h3 class="title">热门吐槽</h3>
     <ul class="problem-list">
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
+            <p class="list-title">吐槽吐得好，生活没烦恼。</p>
         </li>
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
+            <p class="list-title">#今年找工作好难啊，高不成低不就的，想去的公司要求又很严厉，难受，想哭。</p>
         </li>
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
+            <p class="list-title">#不知道大家怎么想的，学习居然成为了不光彩的事，每次去图书馆都要偷偷摸摸的，无语...</p>
         </li>
         <li class="list-item">
-            <p class="list-title">如果你还是象棋新手，学会这些套路，你就可以去破残局赚钱了！</p>
+            <p class="list-title">#戴着快800度的眼镜终究只有0.5的视力，度数再增加，眼睛完全承受不了，只能说坏到了极致。</p>
         </li>
     </ul>
 </div>
@@ -156,7 +148,7 @@ methods: {
          
             if(getUser().name===undefined){
                 this.$message({
-                    message:'必须登陆才分享哦~',
+                    message:'必须登陆才能点赞哦~',
                     type:'warning'
                 })
                 return 

@@ -27,7 +27,7 @@
             <li> <span class="gray index">居住城市</span> 
 			 <span class="info" v-show="!locationcity_input">{{user.locationcity}}</span> 
 	         <form  v-show="locationcity_input"> 
-	          <input type="text" placeholder="输入姓名" v-model="user.locationcity" /> 
+	          <input type="text" placeholder="输入城市" v-model="user.locationcity" /> 
 	          <button type='button' class="sui-btn btn-danger save-btn" @click="saveinfo_locationcity()">保存</button> 
 			  <button type='button' class="sui-btn btn-danger save-btn" @click="locationcity_input=false" >取消</button> 
 	         </form> <span class="gray edit"><a class="fa fa-pencil" aria-hidden="true" @click="locationcity_input=true">编辑</a> </span> </li> 
@@ -35,21 +35,21 @@
 			 <li> <span class="gray index">毕业大学</span> 
 			 <span class="info" v-show="!college_input">{{user.college}}</span> 
 	         <form  v-show="college_input"> 
-	          <input type="text" placeholder="输入姓名" v-model="user.college" /> 
+	          <input type="text" placeholder="输入学校" v-model="user.college" /> 
 	          <button type='button' class="sui-btn btn-danger save-btn" @click="saveinfo_college()">保存</button> 
 			  <button type='button' class="sui-btn btn-danger save-btn" @click="college_input=false" >取消</button> 
 	         </form> <span class="gray edit"><a class="fa fa-pencil" aria-hidden="true" @click="college_input=true">编辑</a> </span> </li>
 			 <li> <span class="gray index">专业</span> 
 			 <span class="info" v-show="!major_input">{{user.major}}</span> 
 	         <form  v-show="major_input"> 
-	          <input type="text" placeholder="输入姓名" v-model="user.major" /> 
+	          <input type="text" placeholder="输入专业" v-model="user.major" /> 
 	          <button type='button' class="sui-btn btn-danger save-btn" @click="saveinfo_major()">保存</button> 
 			  <button type='button' class="sui-btn btn-danger save-btn" @click="major_input=false" >取消</button> 
 	         </form> <span class="gray edit"><a class="fa fa-pencil" aria-hidden="true" @click="major_input=true">编辑</a> </span> </li> 
 			 <li> <span class="gray index">学历</span> 
 			 <span class="info" v-show="!education_input">{{user.education}}</span> 
 	         <form  v-show="education_input"> 
-	          <input type="text" placeholder="输入姓名" v-model="user.education" /> 
+	          <input type="text" placeholder="输入学历" v-model="user.education" /> 
 	          <button type='button' class="sui-btn btn-danger save-btn" @click="saveinfo_education()">保存</button> 
 			  <button type='button' class="sui-btn btn-danger save-btn" @click="education_input=false" >取消</button> 
 	         </form> <span class="gray edit"><a class="fa fa-pencil" aria-hidden="true" @click="education_input=true">编辑</a> </span> </li> 
@@ -64,9 +64,9 @@
 			 <span class="info" v-show="!password_input">点击修改密码</span> 
 	         <form  v-show="password_input"> 
 	          <input type="text" placeholder="输入密码"  /> 
-	          <button type='button' class="sui-btn btn-danger save-btn" @click="saveinfo_password()">保存</button> 
-			  <button type='button' class="sui-btn btn-danger save-btn" @click="password_input=false" >取消</button> 
-	         </form> <span class="gray edit"><a class="fa fa-pencil" aria-hidden="true" @click="password_input=true">编辑</a> </span> </li> 
+	          <button type='button' class="sui-btn btn-danger save-btn" >保存</button> 
+			  <button type='button' class="sui-btn btn-danger save-btn"  >取消</button> 
+	         </form> <span class="gray edit"><a @click="clean();dialogVisible=true">编辑</a> </span> </li> 
 	       </ul> 
 	      </div> 
 	      <div class="account-other"> 
@@ -80,6 +80,18 @@
 	     </div>
      
      </div> 
+    <el-dialog  width="30%" title="确认信息" :visible.sync="dialogVisible"> 
+        <el-form label-width="80px">
+       <el-form-item label="旧密码"><el-input type="password" v-model="password1"></el-input></el-form-item>
+	   <el-form-item label="新密码"><el-input type="password" v-model="password2"></el-input></el-form-item>
+        <el-form-item label="确认密码"><el-input type="password" v-model="password3"></el-input></el-form-item>
+       
+
+        <el-button type="primary" @click="updatapassword()">确定</el-button>
+        <el-button @click="dialogVisible = false" >关闭</el-button>
+
+    </el-form>
+   </el-dialog>
     </div> 
 
 </template>
@@ -96,6 +108,10 @@ export default {
 	},*/
 	data(){
 		return {
+			password1: '',
+			password2: '',
+			password3: '',
+			dialogVisible: false,
 			user:{},
 			name_input: false,
 			email_input: false,
@@ -112,6 +128,35 @@ export default {
 		})
 	},
 	methods:{
+		updatapassword(){
+			if(this.password2!==this.password3||this.password3===''||this.password2===''||this.password1===''){
+				this.$message({
+                  message: '密码有误，请重新输入',
+                  type: 'error'
+			  })
+			  return
+			}
+			userApi.updatepassword(this.password1,this.password2).then(res=>{
+				this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+			  })
+			  if(res.data.flag){
+				  this.dialogVisible=false;
+
+			  }
+			})
+		
+		    
+			
+
+		},
+		clean(){
+			this.password1=''
+			this.password2=''
+			this.password3=''
+
+		},
 		saveinfo_name(){
 			userApi.saveinfo( this.user ).then( res=> {
 				this.name_input=false

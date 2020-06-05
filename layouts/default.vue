@@ -12,6 +12,8 @@
                 <router-link tag="li" to="/gathering" active-class="active"><a>活动</a></router-link>
                 <router-link tag="li" to="/spit" active-class="active"><a>无秘</a></router-link>
                 <router-link tag="li" to="/recruit" active-class="active"><a>招聘</a></router-link>
+            
+
 
             </ul> 
             <form class="sui-form sui-form pull-left"> 
@@ -21,7 +23,7 @@
                
             </form> 
             <div class="sui-nav pull-right info" v-if="user.name!==undefined"> 
-              <li><a href="/manager/account" class="notice">{{user.name}}</a></li>     
+              <li><a :href="'/requster/'+user.name" class="notice">{{user.name}}</a></li>     
               <li><a @click="logout" class="sui-btn btn-login">退出登陆</a></li>            
               <li><a href="/manager/account"  class="homego"><img :src="user.avatar" width="50px" height="50px" :alt="user.name" /></a></li> 
             </div> 
@@ -115,6 +117,7 @@ import '~/assets/plugins/font-awesome/css/font-awesome.min.css'
 import '~/assets/css/widget-base.css'
 import '~/assets/css/widget-head-foot.css'
 import {getUser,removeUser} from '@/utils/auth'
+import {setkeyword,getkeyword} from '@/utils/auth'
 export default {
     data(){
         return {
@@ -128,6 +131,15 @@ export default {
         this.user= getUser()
     },
     methods: {
+        at(word){
+            setkeyword(word)
+            alert(word)
+
+        },
+        get(){
+            alert(getkeyword().word)
+
+        },
         logout(){
             removeUser()
             location.href='/'
@@ -135,8 +147,8 @@ export default {
         searchKeyWords(){
             this.word=this.keyword
             this.keyword=''
-
-            location.href=('/head/keyword/'+this.word)
+            setkeyword(this.word)
+            location.href=('/head/keyword/'+1)
 
             
         }

@@ -4,7 +4,7 @@ const api_name = 'enterprise'
 export default {
   getList() {
     return request({
-      url: `/${api_name}`,
+      url: `/${group_name}/${api_name}`,
       method: 'get'
     })
   },

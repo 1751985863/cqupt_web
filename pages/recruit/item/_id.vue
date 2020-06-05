@@ -12,15 +12,11 @@
       {{item.salary}} / {{item.condition}} / {{item.education}} / {{item.type}}
      </div> 
      <div class="tag"> 
-      <li>Python</li>
-      <li>Python</li>
-      <li>O2O</li>
-      <li>Python</li>
-      <li>Python</li> 
+      <li v-for="(item,index) in labellist" :key="index">{{item}}</li>
      </div> 
     </div> 
     <div class="right-tool"> 
-     <p class="throw"><a href="https://www.zhipin.com/geek/attresume/parser.html?ka=nlp_resume_upload"><button  class="sui-btn btn-throw">投简历</button></a></p> 
+     <p class="throw"><a :href="enterprise_item.url"><button  class="sui-btn btn-throw">投简历</button></a></p> 
 
     </div> 
     <div style="clear:both"></div> 
@@ -75,9 +71,11 @@ export default {
       return recruitApi.findById(params.id ).then( res =>{        
         return enterpriseApi.findById( res.data.data.eid ).then( 
           res2=>{
+
             return {
               enterprise_item: res2.data.data,
-              item:res.data.data
+              item:res.data.data,
+              labellist: res.data.data.label.split(",")
             }
           }
         )

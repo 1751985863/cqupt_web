@@ -1,141 +1,100 @@
 <template>
-<div>
-         <div class="wrapper loginsign"> 
-   <div class="item signup">
-   <div class="form"> 
-     <h3 class="loginsign-title" ><a href="#">{{nikename}}</a> &nbsp;&nbsp;
-       
-             <a @click="jumpNofollow" v-if="FollowPojo.flag===true&&user.token!==undefined" class="sui-btn btn-login">已关注</a>
-             <a @click="jumpfollow" v-if="FollowPojo.flag===false||user.token===undefined" class="sui-btn btn-login">关注他</a>
-        
-         
-         </h3> 
-     <form class="sui-form"> 
-      <div class="control-group"> 
-          <div class="home-content"> 
-                    <ul class="sui-nav nav-tabs nav-large"> 
-                    <li class="active"><a  data-toggle="tab">他的问题</a></li> 
-                    </ul> 
-                    <div class="tab-content tab-wraped"> 
-                    <div id="one" class="tab-pane active"> 
-                    <ul class="question-list"> 
-                        <li v-for="(item,index) in RequsterProblem" :key="index">
-                             <span class="fl good"><span class="num">{{item.thumbup}}</span> 有用</span>
-                              <span class="title"><router-link :to="'/qa/'+item.id"> {{item.title}} </router-link></span> <span class="fr date">{{item.replytime}}</span> <span class="clearfix"></span>
-                        </li> 
-                    </ul> 
-                    
-                    </div> 
-                    </div> 
-                    <div class="activities"> 
-                   
-                
-                    </div> 
-                    
-                </div> 
-       
-       <div class="controls"> 
-        
-       </div> 
-      </div> 
-      <div class="different"> 
-       <div class="radio-content"> 
+   <div>
+   <div class="wrapper tag-item"> 
+    <div class="fl left-list">
 
-       </div> 
-      </div> 
-      <div class="control-group btn-signup"> 
+  <el-card class="box-card">
+         <el-row class="demo-avatar demo-basic">
+    <el-col :span="12">
+    <div class="block"><el-avatar shape="square" :size="85" :src="visituser.avatar"></el-avatar>
+        
+  </div>
+    </el-col>
+
+  </el-row>
      
-       <div class="controls"> 
-       
-
-       </div> 
-       
-      </div> 
-           
-     </form> 
+  <el-button type="text">{{nikename}}</el-button>
+     <el-button   type="primary" v-if="FollowPojo===false||user.token===undefined" @click="jumpfollow()"  style="float: right" icon="el-icon-star-on" size="mini">关注TA</el-button> 
+   <el-button type="success" v-if="FollowPojo===true&&user.token!==undefined" @click="jumpNofollow()"  style="float: right" icon="el-icon-check" size="mini">已关注</el-button> 
+</el-card>
+    
+     <div class="tc-data-list"> 
+      <el-tabs type="border-card">       
+  <el-tab-pane label="他的签名">{{visituser.personality}}</el-tab-pane>
+  <el-tab-pane label="他的提问">
+      <el-card class="box-card">
+  <div v-for="(item,index) in RequsterProblem" :key="index" class="text item">
+    <div class="tag-group">
+         <el-tag  type="danger"  effect="dark">{{item.thumbup}} 点赞 </el-tag>
+         &nbsp;
+         <el-tag  type="warning"  effect="dark">{{item.reply}} 回答 </el-tag>
+          &nbsp;
+         <router-link :to="'/qa/'+item.id"> {{item.title}} </router-link>
     </div>
-   </div>
-      <div class="item"> 
-    <div class="form"> 
-           <h3 class="loginsign-title"><a href="#"  >&nbsp;</a></h3> 
-     <form class="sui-form "> 
-      <div class="control-group"> 
-       <div class="home-content"> 
-                    <ul class="sui-nav nav-tabs nav-large"> 
-                    <li class="active"><a  data-toggle="tab">他的回答</a></li> 
-                    </ul> 
-                    <div class="tab-content tab-wraped"> 
-                    <div id="one" class="tab-pane active"> 
-                    <ul class="question-list"> 
-                        <li v-for="(item,index) in RespondentProblem" :key="index">
-                             <span class="fl good"><span class="num">{{item.thumbup}}</span> 有用</span>
-                              <span class="title"><router-link :to="'/qa/'+item.id"> {{item.title}} </router-link></span> <span class="fr date">{{item.replytime}}</span> <span class="clearfix"></span>
-                        </li> 
-                    </ul> 
-                    
-                    </div> 
-                    </div> 
-                    <div class="activities"> 
-                   
-                
-                    </div> 
-                    
-                </div> 
-      </div> 
-      <div class="control-group"> 
-      
-       <div class="controls"> 
-        
-       </div> 
-      </div> 
-      <div class="controls"> 
-       
-      
-      </div> 
-      
-     </form> 
+  </div>
+</el-card>
+  </el-tab-pane>
+  <el-tab-pane label="他的回答">
+      <el-card class="box-card">
+  <div v-for="(item,index) in RespondentProblem" :key="index" class="text item">
+    <div class="tag-group">
+         <el-tag  type="danger"  effect="dark">{{item.thumbup}} 点赞 </el-tag>
+         &nbsp;
+         <el-tag  type="warning"  effect="dark">{{item.reply}} 回答 </el-tag>
+          &nbsp;
+         <router-link :to="'/qa/'+item.id"> {{item.title}} </router-link>
+    </div>
+  </div>
+</el-card>
+  </el-tab-pane>
+  <el-tab-pane label="他的文章">
+      <el-card class="box-card">
+  <div v-for="(item,index) in articleItems" :key="index" class="text item">
+    <div class="tag-group">
+         <el-tag  type="danger"  effect="dark">{{item.thumbup}} 点赞 </el-tag>
+         &nbsp;
+         <el-tag  type="warning"  effect="dark">{{item.visits}} 浏览 </el-tag>
+          &nbsp;
+         <router-link :to="'/head/'+item.id"> {{item.title}} </router-link>
+    </div>
+  </div>
+</el-card>
+  </el-tab-pane>
+  
+    </el-tabs>
+     </div> 
     </div> 
-   </div>  
-  </div>   
-</div>
+    <div class="fl right-tag"> 
+        
+     
+    </div> 
+    <div class="clearfix"></div> 
+   </div>
+   </div>
 </template>
 <script>
-import '~/assets/css/page-sj-person-loginsign.css'
-import '~/assets/css/page-sj-person-homepage.css'
-import '~/assets/css/page-headline-logined.css'
-import '~/assets/css/page-sj-qa-logined.css'
 import problemApi from '@/api/problem'
 import userApi from '@/api/user'
+import articleApi from '@/api/article'
 import axios from 'axios'
 import {getUser,removeUser} from '@/utils/auth'
-export default {
-     data(){
-        return {
-            user: getUser(),
-            FollowPojo: {
-              
-            }
-        }
-    },
-    asyncData({params}){
+  export default {
+      asyncData({params}){
         
-        return axios.all( [ problemApi.listByNikenameByRequster(params.nikename),problemApi.listByNikenameByRespondent(params.nikename)  ] ).then( 
-            axios.spread( function( RequsterProblem,RespondentProblem ){
+        return axios.all( [ problemApi.listByNikenameByRequster(params.nikename),problemApi.listByNikenameByRespondent(params.nikename),userApi.finduserbynickname(params.nikename),articleApi.listByNickname(params.nikename)] ).then( 
+            axios.spread( function( RequsterProblem,RespondentProblem,visituser,articleItems){
                 return {
                     RequsterProblem: RequsterProblem.data.data,
                     RespondentProblem: RespondentProblem.data.data,
-                    nikename: params.nikename
+                    nikename: params.nikename,
+                    visituser: visituser.data.data,
+                    articleItems: articleItems.data.data
                 } 
             })
          )
     },
-    created(){
-        userApi.likeOrNo(this.nikename).then(res=>{
-            this.FollowPojo=res.data
-        })
-    },
-    methods: {
-        jumpfollow(){
+     methods: {
+         jumpfollow(){
         if(getUser().name===undefined){
                 this.$message({
                     message:'必须登陆才关注哦~',
@@ -149,8 +108,8 @@ export default {
                   message: res.data.message,
                   type: (res.data.flag?'success':'error')
               })
-              userApi.likeOrNo(this.nikename).then(res=>{
-            this.FollowPojo=res.data
+          userApi.likeOrNo(this.nikename).then(res=>{
+            this.FollowPojo=res.data.flag
         })
           })
         
@@ -161,15 +120,74 @@ export default {
                   message: res.data.message,
                   type: (res.data.flag?'success':'error')
               })
-               userApi.likeOrNo(this.nikename).then(res=>{
-            this.FollowPojo=res.data
+            userApi.likeOrNo(this.nikename).then(res=>{
+            this.FollowPojo=res.data.flag
         })
           })
         
       }
 
         
+    ,
+    },
+       
+    created(){
+        userApi.likeOrNo(this.nikename).then(res=>{
+            this.FollowPojo=res.data.flag
+        })
+    },
+    data() {
+      return {
+           FollowPojo: false ,
+          user: getUser(),
+        tabPosition: 'left',
+        currentDate: new Date(),
+         circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+        squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        sizeList: ["large", "medium", "small"]
+      };
     }
-    
-}
+  };
 </script>
+<style>
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+  
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  
+  .clearfix:after {
+      clear: both
+  }
+  .text {
+    font-size: 14px;
+  }
+
+  .item {
+    padding: 18px 0;
+  }
+
+  .box-card {
+    width: 480px;
+  }
+</style>

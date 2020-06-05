@@ -2,6 +2,13 @@ import request from '@/utils/request'
 const group_name = 'recruit'
 const api_name = 'recruit'
 export default {
+  searchbykeyword(keyword,page,size){
+    return request({
+      url: `/recruit/recruit/searchrecruit/${keyword}/${page}/${size}`,
+      method: 'get'
+    })
+
+  },
   getList() {
     return request({
       url: `/${group_name}/${api_name}`,

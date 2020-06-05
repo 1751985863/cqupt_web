@@ -51,9 +51,8 @@ export default {
   },
   searchByKeyWord(keyword,page, size, searchMap) {
     return request({
-      url: `/search/${api_name}/search/${keyword}/${page}/${size}`,
-      method: 'get',
-      data: searchMap
+      url: `/search/article/search/${keyword}/${page}/${size}`,
+      method: 'get'
     })
   },
   save(pojo) {
@@ -115,6 +114,13 @@ export default {
           token: getUser().token
       }
     })
+  },
+  listByNickname(nickname){
+    return request({
+      url: `/${group_name}/${api_name}/getarticle/${nickname}`,
+      method: 'get'
+    })
+
   }
   
   
