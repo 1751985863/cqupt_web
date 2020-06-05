@@ -4,7 +4,7 @@
      <ul class="answer-list"> 
  <li v-for="(item,index) in items" :key="index">
                              <span class="fl good"><span class="num">{{item.thumbup}}</span> 有用</span>
-                              <span class="title"><router-link :to="'/qa/'+item.id"> {{item.title}} </router-link></span> <span class="fr date">{{item.replytime}}</span> <span class="clearfix"></span>
+                              <span class="title"><router-link :to="'/qa/'+item.problemid"> {{item.content}} </router-link></span> <span class="fr date">{{item.replytime}}</span> <span class="clearfix"></span>
                         </li>     </ul> 
     </div> 
 </template>

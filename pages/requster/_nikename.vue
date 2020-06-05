@@ -42,7 +42,7 @@
          &nbsp;
          <el-tag  type="warning"  effect="dark">{{item.reply}} 回答 </el-tag>
           &nbsp;
-         <router-link :to="'/qa/'+item.id"> {{item.title}} </router-link>
+        <router-link :to="'/qa/'+item.problemid"> {{item.content}} </router-link>
     </div>
   </div>
 </el-card>

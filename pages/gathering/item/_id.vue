@@ -206,19 +206,24 @@ export default {
       },
       save(){
           gatheringApi.joingathering(this.pregathid,this.user.mobile,this.checkcode).then(res=>{
+               this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
               if(!res.data.flag){
                 this.checkcode=''
-                  this.$message({
-                    message: ''+res.data.message,
-                    type:'warning'
-                })
+                  
               
-
               }  else{
           
                 this.checkcode='';
+                userApi.joinorno(this.pregathid).then(res=>{
+          
+             this.joinflag=res.data.flag
+
+         })
                   this.dialogVisible=false;
-              location.href=('/gathering')
+              
                     
                 }
 

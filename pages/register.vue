@@ -143,7 +143,9 @@ export default {
             message: res.data.message,
             type: (res.data.flag?'success':'error')
           }) 
-          location.href=('/login')
+          if(res.data.flag){
+            location.href=('/login')
+          }
           
         })
       }    
