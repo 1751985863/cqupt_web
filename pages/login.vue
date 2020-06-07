@@ -1,14 +1,14 @@
 <template>
       <div class="wrapper loginsign"> 
-   <div class="item signup"> 
-    <div class="form"> 
-     <h3 class="loginsign-title">用户登录</h3> 
-     <form class="sui-form login-form"> 
-      <div class="control-group"> 
-       <label for="inputname" class="control-label">手机号：</label> 
-       <div class="controls"> 
-        <input type="text" id="inputname" v-model="mobile" placeholder="11位手机号" class="input-xlarge" data-rules="required" /> 
-       </div> 
+     <div class="item signup"> 
+      <div class="form"> 
+       <h3 class="loginsign-title">用户登录</h3> 
+       <form class="sui-form login-form"> 
+       <div class="control-group"> 
+         <label for="inputname" class="control-label">手机号：</label> 
+         <div class="controls"> 
+          <input type="text" id="inputname" v-model="mobile" placeholder="11位手机号" class="input-xlarge" data-rules="required" /> 
+        </div> 
       </div> 
       <div class="control-group"> 
        <label for="inputpassword" class="control-label">密码：</label> 
@@ -27,26 +27,12 @@
    <div class="item"> 
     <div class="form"> 
      <h3 class="loginsign-title"><div id="weixin"></div></h3> 
-     <form class="sui-form login-form"> 
-      <div class="control-group"> 
-       <label for="inputname" class="control-label"></label> 
-       <div class="controls"> 
-       
-       </div> 
-      </div> 
-      <div class="control-group"> 
-      
-       <div class="controls"> 
-        
-       </div> 
-      </div> 
-      <div class="controls"> 
-       
-      
-      </div> 
-      
-     </form> 
-         <el-dialog  width="30%" title="忘记密码" :visible.sync="dialogVisible"> 
+
+ 
+
+    </div> 
+   </div> 
+      <el-dialog  width="30%" title="忘记密码" :visible.sync="dialogVisible"> 
         <el-form label-width="80px">
        <el-form-item label="手机号"><el-input  type="text" v-model="mobile"></el-input></el-form-item>
        <el-form-item label="验证码"><el-input :disabled="Visible" type="text" v-model="code"></el-input></el-form-item>
@@ -60,9 +46,6 @@
 
     </el-form>
    </el-dialog>
-
-    </div> 
-   </div> 
   </div>   
 </template>
 <script>
@@ -107,6 +90,7 @@ export default {
             //保存用户信息 
           
             setUser(res.data.data.token, res.data.data.nickname, res.data.data.avatar)
+            alert("ddfff")
            
             location.href='/manager/account' //用户中心            
             

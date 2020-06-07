@@ -70,17 +70,13 @@
      
     </div> 
     <div class="clearfix"></div> 
-        <el-dialog  width="30%" title="发送私信" :visible.sync="dialogVisible"> 
+   <el-dialog  width="30%" title="发送私信" :visible.sync="dialogVisible"> 
         <el-form label-width="80px">
           <el-input v-model="content" type="textarea" :rows="5" ></el-input>
           <br>
           <br>
            <el-button type="primary" @click="sendletter(nikename)">确定</el-button>
         <el-button @click="dialogVisible = false" >关闭</el-button>
-   
-       
-
-
     </el-form>
    </el-dialog>
    </div>

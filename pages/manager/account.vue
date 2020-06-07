@@ -15,7 +15,7 @@
 	          <input type="text" placeholder="输入姓名" v-model="user.nickname" /> 
 	          <button type='button' class="sui-btn btn-danger save-btn" @click="saveinfo_name()">保存</button> 
 			  <button type='button' class="sui-btn btn-danger save-btn" @click="name_input=false" >取消</button> 
-	         </form> <span class="gray edit"><a class="fa fa-pencil" aria-hidden="true" @click="name_input=true">编辑</a> </span> </li> 
+	         </form> <span ></span> </li> 
 
 			 <li> <span class="gray index">email</span> 
 			 <span class="info" v-show="!email_input">{{user.email}}</span> 

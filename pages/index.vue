@@ -11,7 +11,8 @@
        <li><a href="http://job.cqupt.edu.cn/portal/home.html">就业信息</a></li> 
         <li><a href="https://github.com/">GitHub</a></li> 
          <li><a href="https://mvnrepository.com/artifact/oracle/ojdbc6/11.2.0.3?__cf_chl_jschl_tk__=ffd0ac4cf73bece0428b62b0a345a670e439b39f-1584774421-0-ATgB4QbPsD6DGR0UryjYUchCyoe19j-SyQnxyk5drCAJ1zJDj4jPeBe-gn1New0jlPh-cmZoogn8xaxeCglLGAHBp4NooPkx2DpFH7urHpN209ShI0Wt48wp8tdrzT7KU4t2XwDV2xHwLaw5hcjxfNdi5MKZGTHSCHhUW50P3hQPvP-k8mkL6Zr-CZA-_DUTrRdcbAg0QXKjdX-djOuVxAqsPc5MWdgV-97WpmSRWmB5i8yFrsZQfU_Zm817-mlmdHXOyQoiMeeZltcpNqRTV6d-kkyXWNKvIy6hJkm581y9Ujs7U9JMHRbl-QHAqOm_Lg7BiQOUq4nB-vbMWszGHC4r7hcLkPeyic4j_dWqa9UhTBY9vGICgQpuB3UFb9RqTQ">Maven库</a></li> 
-     <li><a href="https://hub.docker.com/">DockerHub</a></li> 
+       <li><a href="https://leetcode-cn.com/explore/">LeetCode</a></li> 
+         <li><a href="https://hub.docker.com/">DockerHub</a></li> 
      
       </ul> 
      </div> 
@@ -105,7 +106,7 @@
          </ol> 
          <div class="carousel-inner"> 
           <div class="active item"> 
-          <a href="https://cn.vuejs.org/"> <img src="~/assets/img/widget-ad01.png" /> </a>
+          <a href="https://www.runoob.com/w3cnote_genre/algorithm"> <img src="~/assets/img/ad01.png" /> </a>
           </div> 
           <div class="item"> 
            <img src="~/assets/img/widget-ad01.png" /> 

@@ -68,6 +68,7 @@ import recruitApi from '@/api/recruit'
 import enterpriseApi from '@/api/enterprise'
 export default {
     asyncData({params}){
+      
       return recruitApi.findById(params.id ).then( res =>{        
         return enterpriseApi.findById( res.data.data.eid ).then( 
           res2=>{
@@ -80,6 +81,12 @@ export default {
           }
         )
       })
+    } ,
+    created(){
+      
+
+      
+
     }
 }
 </script>

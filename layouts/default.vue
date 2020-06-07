@@ -33,8 +33,8 @@
             </div> 
              <div class="sui-nav pull-right info" v-if="user.name===undefined"> 
                  
-                        <li><a href="/register" target="_blank">注册</a></li> 
-                        <li><a href="/login" target="_blank" class="sui-btn btn-login">登录</a></li>  
+                        <li><a href="/userlogin1" target="_blank">注册</a></li> 
+                        <li><a href="/userlogin1" target="_blank" class="sui-btn btn-login">登录</a></li>  
              </div>
             </div> 
             </div> 
