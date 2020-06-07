@@ -5,9 +5,10 @@
       <!-- 标题区 --> 
       <div class="detail-tit"> 
        <div class="detail-author"> 
-             <h4><router-link :to="'/requster/'+pojo.nickname"> {{pojo.nickname}} </router-link>发布</h4>
+             <router-link :to="'/requster/'+pojo.nickname"> {{pojo.nickname}} </router-link>发布
           
        </div> 
+ 
        <div class="detail-content"> 
            <h1>{{pojo.title}}</h1>
         <p>{{pojo.content}}</p> 

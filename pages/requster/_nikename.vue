@@ -14,6 +14,7 @@
   </el-row>
      
   <el-button type="text">{{nikename}}</el-button>
+  <el-button   type="primary"  style="float: right" @click="loginorno()" icon="el-icon-message" size="mini">私信TA</el-button> 
      <el-button   type="primary" v-if="FollowPojo===false||user.token===undefined" @click="jumpfollow()"  style="float: right" icon="el-icon-star-on" size="mini">关注TA</el-button> 
    <el-button type="success" v-if="FollowPojo===true&&user.token!==undefined" @click="jumpNofollow()"  style="float: right" icon="el-icon-check" size="mini">已关注</el-button> 
 </el-card>
@@ -42,7 +43,7 @@
          &nbsp;
          <el-tag  type="warning"  effect="dark">{{item.reply}} 回答 </el-tag>
           &nbsp;
-        <router-link :to="'/qa/'+item.problemid"> {{item.content}} </router-link>
+        <router-link :to="'/qa/'+item.id"> {{item.title}} </router-link>
     </div>
   </div>
 </el-card>
@@ -69,19 +70,33 @@
      
     </div> 
     <div class="clearfix"></div> 
+        <el-dialog  width="30%" title="发送私信" :visible.sync="dialogVisible"> 
+        <el-form label-width="80px">
+          <el-input v-model="content" type="textarea" :rows="5" ></el-input>
+          <br>
+          <br>
+           <el-button type="primary" @click="sendletter(nikename)">确定</el-button>
+        <el-button @click="dialogVisible = false" >关闭</el-button>
+   
+       
+
+
+    </el-form>
+   </el-dialog>
    </div>
    </div>
 </template>
 <script>
 import problemApi from '@/api/problem'
 import userApi from '@/api/user'
+import letterApi from '@/api/letter'
 import articleApi from '@/api/article'
 import axios from 'axios'
 import {getUser,removeUser} from '@/utils/auth'
   export default {
       asyncData({params}){
         
-        return axios.all( [ problemApi.listByNikenameByRequster(params.nikename),problemApi.listByNikenameByRespondent(params.nikename),userApi.finduserbynickname(params.nikename),articleApi.listByNickname(params.nikename)] ).then( 
+        return axios.all( [ problemApi.listByNikenameByRequster(params.nikename),problemApi.myreply(params.nikename),userApi.finduserbynickname(params.nikename),articleApi.listByNickname(params.nikename)] ).then( 
             axios.spread( function( RequsterProblem,RespondentProblem,visituser,articleItems){
                 return {
                     RequsterProblem: RequsterProblem.data.data,
@@ -94,6 +109,31 @@ import {getUser,removeUser} from '@/utils/auth'
          )
     },
      methods: {
+       loginorno(){
+         if(getUser().name===undefined){
+                this.$message({
+                    message:'必须登陆才能私信TA哦~',
+                    type:'warning'
+                })
+                return 
+            } 
+            this.dialogVisible=true
+
+       },
+       sendletter(targetname){
+         letterApi.sendletter(targetname,{content:this.content}).then(res=>{
+           this.$message({
+                  message: res.data.message,
+                  type: (res.data.flag?'success':'error')
+              })
+              this.dialogVisible = false;
+              this.content='';
+
+
+         })
+
+       },
+      
          jumpfollow(){
         if(getUser().name===undefined){
                 this.$message({
@@ -138,6 +178,8 @@ import {getUser,removeUser} from '@/utils/auth'
     },
     data() {
       return {
+        content: '',
+        dialogVisible: false,
            FollowPojo: false ,
           user: getUser(),
         tabPosition: 'left',

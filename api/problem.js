@@ -99,13 +99,10 @@ export default {
             }
         })
     },
-    myreply(){
+    myreply(nickname){
         return request({
-            url: `/${group_name}/reply/myreply`,
-            method: 'get',
-            headers: {
-                token: getUser().token
-            }
+            url: `/${group_name}/${api_name}/findproblem/reply/${nickname}`,
+            method: 'get'
         })
     },
     delmyprobelm(id){

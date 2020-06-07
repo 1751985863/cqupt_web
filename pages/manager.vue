@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <div class="myhome-personinfo" style="background-color:#AEDD81"> 
@@ -7,9 +8,12 @@
                 <div class="photo"> 
                 <img :src="photorul" alt="" class="person" /> 
                 <div class="share"> 
-                <span><img src="~/assets/img/asset-QQ.png" alt="" width="34" height="28" /></span> 
-                <span><img src="~/assets/img/asset-weixin.png" alt="" width="28" height="28" /></span> 
-                <span><img src="~/assets/img/asset-weibo.png" alt="" width="28" height="28" /></span> 
+                    <el-badge :value="0" class="item">
+                        <el-button size="small">私信</el-button>
+                       <el-button size="small" class="share-button" icon="el-icon-chat-dot-square" type="primary"></el-button>
+                    </el-badge>
+                    
+          
                 </div> 
                 </div> 
                 <!--文字信息--> 
@@ -29,12 +33,13 @@
                 </div> 
                 <!--右侧编辑--> 
                 <div class="edit-info"> 
-                <h4 @click="dialogVisible=true">个人简介<span class="addedit" ><img src="~/assets/img/widget-edit.png" width="12" height="12"  />编辑</span></h4> 
+                <h4 @click="dialogVisible=true">个人签名<span class="addedit" ><img src="~/assets/img/widget-edit.png" width="12" height="3"  />编辑</span></h4> 
                 <div class="info-box"> 
                 <div class="edit-intro">
                 {{user.personality}}
                 </div> 
                 </div> 
+                
                 </div> 
                 <div class="clearfix"></div> 
             </div> 
@@ -43,6 +48,7 @@
             <div class="left-list"> 
                 <div class="myhome-list"> 
                 <ul class="home-list"> 
+                    
                 <router-link to="/manager/myspit" tag="li" active-class="active" exact><a>我的秘密</a></router-link>
                 <router-link to="/manager/myanswer" tag="li" active-class="active"><a>我的回答</a></router-link>
                 <router-link to="/manager/myquestion" tag="li" active-class="active"><a>我的提问</a></router-link>
@@ -50,6 +56,7 @@
                 </ul> 
                 <ul class="home-list bottom"> 
                 <router-link to="/manager/myarticle" tag="li" active-class="active"><a>发表文章</a></router-link>
+                <router-link to="/manager/myletter" tag="li" active-class="active"><a>我的私信</a></router-link>
                 <router-link to="/manager/myfocus" tag="li" active-class="active"><a>我的关注</a></router-link>
                 <router-link to="/manager/myfans" tag="li" active-class="active"><a>我的粉丝</a></router-link>
                 <router-link to="/manager/account" tag="li" active-class="active"><a>账户设置</a></router-link>            
@@ -73,6 +80,7 @@
         
     </div>
 </template>
+
 <script>
 import '~/assets/css/page-sj-person-homepage.css'
 import {getUser} from '@/utils/auth'
@@ -80,6 +88,7 @@ import userApi from '@/api/user'
 export default {
     data(){
         return {
+            show3: true,
             photorul: getUser().avatar,
             dialogVisible: false,
             user: {}
@@ -121,3 +130,17 @@ export default {
     }
 }
 </script>
+<style>
+  .transition-box {
+    margin-bottom: 10px;
+    width: 200px;
+    height: 100px;
+    border-radius: 4px;
+    background-color: #409EFF;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+</style>

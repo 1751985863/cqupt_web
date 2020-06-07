@@ -11,6 +11,7 @@
                 <router-link tag="li" to="/qa" active-class="active"><a>知否</a></router-link>
                 <router-link tag="li" to="/gathering" active-class="active"><a>活动</a></router-link>
                 <router-link tag="li" to="/spit" active-class="active"><a>无秘</a></router-link>
+                 <router-link tag="li" to="/circle" active-class="active"><a>圈子</a></router-link>
                 <router-link tag="li" to="/recruit" active-class="active"><a>招聘</a></router-link>
             
 
@@ -22,12 +23,16 @@
                   <el-button slot="append" icon="el-icon-search" circle @click="searchKeyWords()"></el-button>
                
             </form> 
+            
+            
             <div class="sui-nav pull-right info" v-if="user.name!==undefined"> 
               <li><a :href="'/requster/'+user.name" class="notice">{{user.name}}</a></li>     
-              <li><a @click="logout" class="sui-btn btn-login">退出登陆</a></li>            
+              <li><a @click="logout" class="sui-btn btn-login">退出</a></li>
+                    
               <li><a href="/manager/account"  class="homego"><img :src="user.avatar" width="50px" height="50px" :alt="user.name" /></a></li> 
             </div> 
              <div class="sui-nav pull-right info" v-if="user.name===undefined"> 
+                 
                         <li><a href="/register" target="_blank">注册</a></li> 
                         <li><a href="/login" target="_blank" class="sui-btn btn-login">登录</a></li>  
              </div>
@@ -156,3 +161,9 @@ export default {
     }
 }
 </script>
+<style>
+.item {
+  margin-top: 10px;
+  margin-right: 40px;
+}
+</style>
